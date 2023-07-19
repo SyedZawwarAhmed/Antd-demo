@@ -1,0 +1,108 @@
+/* src/App.css */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.cart-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.product-card {
+  text-align: center;
+}
+
+.cart-items {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.cart-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.cart-total {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 10px;
+  padding-right: 10px;
+}
+
+/* Set the layout to take full width */
+.ant-layout {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Styling for the cart drawer */
+.ant-drawer-content-wrapper {
+  background-color: #f7f7f7;
+}
+
+.ant-drawer-title {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.cart-items {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  color: black
+}
+
+.quantity-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-buttons button {
+  margin-right: 5px;
+}
+
+.cart-total {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 10px;
+  padding-right: 10px;
+  color: black
+}
