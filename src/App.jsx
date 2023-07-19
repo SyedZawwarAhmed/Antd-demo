@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Layout,
   Input,
@@ -10,10 +10,13 @@ import {
   Badge,
   Row,
   Col,
+  Typography,
+  Image,
 } from "antd";
 import "./App.css";
-import products from "./productData";
+// import products from "./productData";
 
+const { Title } = Typography;
 const { Header, Content } = Layout;
 const { Option } = Select;
 
@@ -22,6 +25,13 @@ const App = () => {
   const [sortOption, setSortOption] = useState("name");
   const [cartVisible, setCartVisible] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/products")
+      .then((response) => response.json())
+      .then((data) => setProducts(data.products));
+  }, []);
 
   const handleSearch = (value) => {
     setSearchText(value);
@@ -87,9 +97,9 @@ const App = () => {
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);
 
-  return (
+  return products ? (
     <Layout style={{ display: "flex" }}>
-      <Header>
+      <Header style={{ display: "fixed" }}>
         <Row className="header-container">
           <Col span={22}>
             <div className="search-container">
@@ -120,40 +130,60 @@ const App = () => {
         </Row>
       </Header>
       <Content style={{ padding: "20px" }}>
-        <div className="product-list">
+        <Row className="product-list">
           {products
             .filter((product) =>
-              product.name.toLowerCase().includes(searchText.toLowerCase())
+              product.title.toLowerCase().includes(searchText.toLowerCase())
             )
             .sort((a, b) =>
               sortOption === "price"
                 ? a.price - b.price
-                : a.name.localeCompare(b.name)
+                : a.title.localeCompare(b.name)
             )
             .map((product) => (
-              <Card key={product.id} className="product-card">
-                <img width={150} src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>${product.price.toFixed(2)}</p>
-                <Button type="primary" onClick={() => addToCart(product)}>
-                  Add to Cart
-                </Button>
-              </Card>
+              <Col key={product.id}>
+                <Card
+                  bodyStyle={{ height: "100%" }}
+                  className="product-card"
+                  key={product.id}
+                >
+                  <div className="product-card">
+                    <img
+                      width={150}
+                      height={150}
+                      src={product.images[0]}
+                      alt={product.title}
+                    />
+                    <Title level={5}>{product.title}</Title>
+                    <p>${product.price.toFixed(2)}</p>
+                    <Button type="primary" onClick={() => addToCart(product)}>
+                      Add to Cart
+                    </Button>
+                  </div>
+                </Card>
+              </Col>
             ))}
-        </div>
+        </Row>
       </Content>
       <Drawer
         title="Shopping Cart"
         placement="right"
         onClose={handleCartClose}
         visible={cartVisible}
+        width={500}
       >
         <div className="cart-items">
           {cartItems.map((item) => (
             <div key={item.id} className="cart-item">
-              <img src={item.image} alt={item.name} />
-              <div>
-                <h3>{item.name}</h3>
+              <Image src={item.images[0]} alt={item.name} width={150} />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Title level={5}>{item.title}</Title>
                 <p>Price: ${item.price.toFixed(2)}</p>
                 <p>Quantity: {item.quantity}</p>
                 <div className="quantity-buttons">
@@ -174,7 +204,7 @@ const App = () => {
         <div className="cart-total">Total: ${cartTotal}</div>
       </Drawer>
     </Layout>
-  );
+  ) : null;
 };
 
 export default App;

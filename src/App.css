@@ -10,6 +10,7 @@
 .search-container {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 .cart-button-container {
@@ -19,7 +20,7 @@
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
   margin: 20px auto;
   max-width: 1200px;
@@ -28,6 +29,11 @@
 
 .product-card {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 
 .cart-items {
@@ -75,7 +81,7 @@
 }
 
 .cart-items {
-  max-height: 400px;
+  /* max-height: 400px; */
   overflow-y: auto;
   padding-right: 10px;
 }
@@ -87,7 +93,7 @@
   margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
-  color: black
+  color: black;
 }
 
 .quantity-buttons {
@@ -104,5 +110,5 @@
   font-weight: bold;
   margin-top: 10px;
   padding-right: 10px;
-  color: black
+  color: black;
 }
